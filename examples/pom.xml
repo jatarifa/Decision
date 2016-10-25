@@ -20,7 +20,7 @@
 	<parent>
 		<groupId>com.stratio.decision</groupId>
 		<artifactId>stratio-decision</artifactId>
-		<version>1.2.0-SNAPSHOT</version>
+		<version>1.2.0_sensage</version>
 	</parent>
 	<properties>
 		<jacoco.skip>true</jacoco.skip>
@@ -34,13 +34,11 @@
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>16.0.1</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.kafka</groupId>
 			<artifactId>kafka_2.10</artifactId>
-			<version>0.8.2.1</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.apache.zookeeper</groupId>
@@ -95,7 +93,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-deploy-plugin</artifactId>
-				<version>2.8.1</version>
 				<configuration>
 					<skip>true</skip>
 				</configuration>

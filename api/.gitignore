@@ -1,3 +1,6 @@
+.cache-main
+.cache-tests
+.settings/org.scala-ide.sdt.core.prefs
 .idea/
 .idea_modules/
 target/

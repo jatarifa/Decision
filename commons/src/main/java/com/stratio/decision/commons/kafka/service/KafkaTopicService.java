@@ -56,12 +56,12 @@ public class KafkaTopicService implements TopicService {
     }
 
     public Boolean existsTopic(String topic) {
-        return AdminUtils.topicExists(zkClient, topic);
+        return AdminUtils.topicExists(ZkUtils.apply(zkClient, false), topic);
     }
 
     @Override
     public void createTopicIfNotExist(String topic, int replicationFactor, int partitions) {
-        if (!AdminUtils.topicExists(zkClient, topic)) {
+        if (!AdminUtils.topicExists(ZkUtils.apply(zkClient, false), topic)) {
             createOrUpdateTopic(topic, replicationFactor, partitions);
         } else {
             logger.info("Topic {} already exists", topic);
@@ -77,11 +77,11 @@ public class KafkaTopicService implements TopicService {
     public void createOrUpdateTopic(String topic, int replicationFactor, int partitions) {
         logger.debug("Creating topic {} with replication {} and {} partitions", topic, replicationFactor, partitions);
         Topic.validate(topic);
-        Seq<Object> brokerList = ZkUtils.getSortedBrokerList(zkClient);
+        Seq<Object> brokerList =  ZkUtils.apply(zkClient, false).getSortedBrokerList();
         Map<Object, Seq<Object>> partitionReplicaAssignment = AdminUtils.assignReplicasToBrokers(brokerList,
                 partitions, replicationFactor, AdminUtils.assignReplicasToBrokers$default$4(),
                 AdminUtils.assignReplicasToBrokers$default$5());
-        AdminUtils.createOrUpdateTopicPartitionAssignmentPathInZK(zkClient, topic, partitionReplicaAssignment,
+        AdminUtils.createOrUpdateTopicPartitionAssignmentPathInZK(ZkUtils.apply(zkClient, false), topic, partitionReplicaAssignment,
                 AdminUtils.createOrUpdateTopicPartitionAssignmentPathInZK$default$4(),
                 AdminUtils.createOrUpdateTopicPartitionAssignmentPathInZK$default$5());
         logger.debug("Topic {} created", topic);

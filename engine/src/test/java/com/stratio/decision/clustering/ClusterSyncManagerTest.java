@@ -279,7 +279,7 @@ public class ClusterSyncManagerTest {
         when(clusterBarrierManager.manageAckBarrier(anyString(), anyInt())).thenReturn(true);
 
         doNothing().when(zkUtils).createZNodeJsonReply(any(StratioStreamingMessage.class), any(Object.class));
-        when(curatorFramework.delete().deletingChildrenIfNeeded().forPath(anyString())).thenReturn(null);
+        when((Object)curatorFramework.delete().deletingChildrenIfNeeded().forPath(anyString())).thenReturn(null);
 
         ActionCallbackDto reply = spyClusterSyncManager.manageAckStreamingOperation(message, nodeReply);
         assertEquals(nodeReply, reply);
@@ -338,7 +338,7 @@ public class ClusterSyncManagerTest {
 
         byte[] data = new Gson().toJson(parsedResponse).getBytes();
 
-        when(curatorFramework.getData().forPath(anyString())).thenReturn(data);
+        when((Object)(curatorFramework.getData().forPath(anyString()))).thenReturn(data);
 
         final ClusterSyncManager spyClusterSyncManager = PowerMockito.spy(new ClusterSyncManager(STREAMING
                 .ZK_CLUSTER_MANAGER_PATH, "id", configurationContext, failOverTask, curatorFramework, zkUtils,
@@ -363,7 +363,7 @@ public class ClusterSyncManagerTest {
 
         byte[] data = new Gson().toJson(parsedResponse).getBytes();
 
-        when(curatorFramework.getData().forPath(anyString())).thenReturn(data);
+        when((Object)(curatorFramework.getData().forPath(anyString()))).thenReturn(data);
 
         final ClusterSyncManager spyClusterSyncManager = PowerMockito.spy(new ClusterSyncManager(STREAMING
                 .ZK_CLUSTER_MANAGER_PATH, "id", configurationContext, failOverTask, curatorFramework, zkUtils,
